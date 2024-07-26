@@ -7,6 +7,7 @@ To this end, we will keep a complete record of how these abilities are trained, 
   - [Lora]
   - [ControlNet]
   - [IP-adapter]
+  - [AnimateDiff]
 - [DiT]
   - [PixArt]
   - [Stable Diffusion 3]
