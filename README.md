@@ -3,6 +3,7 @@ As a AIGC rookie, I want to go ahead and try to reproduce some of the basic abil
 
 To this end, we will keep a complete record of how these abilities are trained, and our future plans can be broadly categorized into:
 
+- [Data Process]
 - [SDXL]
   - [Lora]
   - [ControlNet]
