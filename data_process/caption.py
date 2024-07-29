@@ -8,16 +8,6 @@ import json
 import ast
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-# GLM-4v output
-# ```json
-# {
-#   "prompt": "A white-haired anime girl, wearing a white baseball cap, a red and black sports jacket, and a red turtleneck sweater. She has a calm and serious expression, with a single earring visible. The background is a uniform pink color."
-# }
-# ```
-def refine_caption(caption):
-    text = caption.replace("```json", "").replace("```","")
-    return text.lower().rstrip('.')
-
 def resize_image(image, target_sizes):
     original_width, original_height = image.size
     original_ratio = original_width / original_height
@@ -100,7 +90,7 @@ if __name__ == "__main__":
                 outputs = model.generate(**inputs, **gen_kwargs)
                 outputs = outputs[:, inputs['input_ids'].shape[1]:]
                 caption = tokenizer.decode(outputs[0], skip_special_tokens=True)
-                text = refine_caption(caption) if args.trigger_word is None else args.trigger_word + ", " + refine_caption(caption)
+                text = caption.lower().rstrip('.') if args.trigger_word is None else args.trigger_word + ", " + caption.lower().rstrip('.')
 
             sample = {
                 "image": file,
