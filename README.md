@@ -70,6 +70,20 @@ python data_process/caption.py --train_image_dir "/path/to/your/data" --trigger_
 python data_process/caption.py --train_image_dir "/path/to/your/data" --use_buckets --trigger_word "KongFu Panda"
 ```
 
+The processed json format as follows:
+```json
+[
+    {
+        "image": "1.jpg",
+        "text": "white hair, anime style, pink background, long hair, jacket, black and red top, earrings, rosy cheeks, large eyes, youthful, fashion, illustration, manga, character design, vibrant colors, hairstyle, clothing, accessories, earring design, artistic, contemporary, youthful fashion, graphic novel, digital drawing, pop art influence, soft shading, detailed rendering, feminine aesthetic"
+    },
+    {
+        "image": "2.jpg",
+        "text": "boy, Girl, Denim Jacket, Newspaper, Urban, Graffiti, Sunglasses, Earrings, Casual, Back-to-Back, Friendship, Cultural, Street Art, Vibrant Colors, Modern, Cool, Trendy, Intimate, Dynamic Composition, Illustration, Asian Style, Youthful, Protective Stance, Warm Atmosphere, Fashion Forward, Artistic Background, Daily"
+    }
+]
+```
+
 ## SDXL
 Stable Diffusion XL (SDXL) is an advanced variant of [IDM](https://arxiv.org/abs/2112.10752) designed to generate high-quality images from textual descriptions. Building upon the original SD1.5(2.1), SDXL offers enhanced capabilities and improved performance, making it a powerful tool for various applications in the field of generative AI.
 
