@@ -93,7 +93,7 @@ Our Lora training code [train_text_to_image_lora_sdxl.py](/SDXL/train_text_to_im
 - We rewrite the dataset as ``BaseDataset.py`` and ``ARBDataset.py`` in ``dataset`` directory.
 - We remove some parameters inside the diffusers for simplying training process, and adjust some settings.
 
-After captioning the complete trained images, we can conduct ``sh train_text_to_image_lora_sdxl.sh`` to train your lora moel:
+After captioning the complete trained images, we can conduct ``sh train_text_to_image_lora_sdxl.sh`` to train your lora model:
 ```bash
 export MODEL_NAME="/path/to/your/model"
 export OUTPUT_DIR="lora/rank32"
