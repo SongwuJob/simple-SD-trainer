@@ -79,14 +79,14 @@ Our Lora training code is modified from [diffusers](https://github.com/huggingfa
 - We rewrite the dataset as ``BaseDataset.py`` and ``ARBDataset.py`` in ``dataset`` directory.
 - We remove some parameters inside the diffusers for simplying training process, and adjust some settings.
 
-  After captioning the complete trained images, we can conduct ``sh train_text_to_image_lora_sdxl.sh`` to train your lora moel:
-  ```bash
-  export MODEL_NAME="/path/to/your/model"
+After captioning the complete trained images, we can conduct ``sh train_text_to_image_lora_sdxl.sh`` to train your lora moel:
+```bash
+export MODEL_NAME="/path/to/your/model"
 export OUTPUT_DIR="lora/rank32"
 export TRAIN_DIR="images"
 export JSON_FILE="images/data.json"
 
-accelerate launch  ./SDXL/Lora/train_text_to_image_lora_sdxl.py \
+accelerate launch  ./SDXL/train_text_to_image_lora_sdxl.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
   --train_data_dir=$TRAIN_DIR \
   --output_dir=$OUTPUT_DIR \
@@ -104,6 +104,6 @@ accelerate launch  ./SDXL/Lora/train_text_to_image_lora_sdxl.py \
   --mixed_precision="fp16" \
   --train_text_encoder \
   --seed=1337 \
-  ```
+```
 
 
