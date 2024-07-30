@@ -94,6 +94,7 @@ accelerate launch  ./SDXL/train_text_to_image_lora_sdxl.py \
   --height=1024 --width=1024  \
   --train_batch_size=2 \
   --random_flip \
+  --rank=32 --text_encoder_rank=8 \
   --gradient_accumulation_steps=2 \
   --num_train_epochs=30 --repeats=5 \
   --checkpointing_steps=1000 \
