@@ -70,7 +70,7 @@ python data_process/caption.py --train_image_dir "/path/to/your/data" --trigger_
 python data_process/caption.py --train_image_dir "/path/to/your/data" --use_buckets --trigger_word "KongFu Panda"
 ```
 
-The processed json format as follows:
+The processed ``data.json`` format as follows:
 ```json
 [
     {
