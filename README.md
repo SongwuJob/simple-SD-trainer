@@ -4,8 +4,8 @@ As a AIGC rookie, I want to go ahead and try to reproduce some basic abilities o
 To this end, we will keep a complete record of how these abilities are trained, and our future plans can be broadly categorized into:
 
 - [Data Process](#data-process)
-- [SDXL]
-  - [Lora]
+- [SDXL](#sdxl)
+  - [Lora](#lora)
   - [ControlNet]
   - [IP-adapter]
   - [AnimateDiff]
@@ -70,5 +70,40 @@ python data_process/caption.py --train_image_dir "/path/to/your/data" --trigger_
 python data_process/caption.py --train_image_dir "/path/to/your/data" --use_buckets --trigger_word "KongFu Panda"
 ```
 
+## SDXL
+Stable Diffusion XL (SDXL) is an advanced variant of [IDM](https://arxiv.org/abs/2112.10752) designed to generate high-quality images from textual descriptions. Building upon the original SD1.5(2.1), SDXL offers enhanced capabilities and improved performance, making it a powerful tool for various applications in the field of generative AI.
+
+### Lora
+Our Lora training code is modified from [diffusers](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image) and [kohya-ss](https://github.com/kohya-ss/sd-scripts). 
+
+- We rewrite the dataset as ``BaseDataset.py`` and ``ARBDataset.py`` in ``dataset`` directory.
+- We remove some parameters inside the diffusers for simplying training process, and adjust some settings.
+
+  After captioning the complete trained images, we can conduct ``sh train_text_to_image_lora_sdxl.sh`` to train your lora moel:
+  ```bash
+  export MODEL_NAME="/path/to/your/model"
+export OUTPUT_DIR="lora/rank32"
+export TRAIN_DIR="images"
+export JSON_FILE="images/data.json"
+
+accelerate launch  ./SDXL/Lora/train_text_to_image_lora_sdxl.py \
+  --pretrained_model_name_or_path=$MODEL_NAME \
+  --train_data_dir=$TRAIN_DIR \
+  --output_dir=$OUTPUT_DIR \
+  --json_file=$JSON_FILE \
+  --height=1024 --width=1024  \
+  --train_batch_size=2 \
+  --random_flip \
+  --gradient_accumulation_steps=2 \
+  --num_train_epochs=30 --repeats=5 \
+  --checkpointing_steps=1000 \
+  --learning_rate=1e-4 \
+  --text_encoder_lr=1e-5 \
+  --lr_scheduler="constant_with_warmup" \
+  --lr_warmup_steps=500 \
+  --mixed_precision="fp16" \
+  --train_text_encoder \
+  --seed=1337 \
+  ```
 
 
