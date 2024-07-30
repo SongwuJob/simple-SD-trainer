@@ -3,7 +3,7 @@ export OUTPUT_DIR="lora/rank32"
 export TRAIN_DIR="images"
 export JSON_FILE="images/data.json"
 
-accelerate launch  ./SDXL/Lora/train_text_to_image_lora_sdxl.py \
+accelerate launch  ./SDXL/train_text_to_image_lora_sdxl.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
   --train_data_dir=$TRAIN_DIR \
   --output_dir=$OUTPUT_DIR \
@@ -13,7 +13,7 @@ accelerate launch  ./SDXL/Lora/train_text_to_image_lora_sdxl.py \
   --random_flip \
   --gradient_accumulation_steps=2 \
   --num_train_epochs=30 --repeats=5 \
-  --checkpointing_steps=1000 \
+  --checkpointing_steps=2000 \
   --learning_rate=1e-4 \
   --text_encoder_lr=1e-5 \
   --lr_scheduler="constant_with_warmup" \
