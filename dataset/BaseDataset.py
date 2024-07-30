@@ -6,12 +6,10 @@ import random
 import numpy as np
 
 from PIL import Image
-from PIL.ImageOps import exif_transpose
 import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
 from torchvision.transforms.functional import crop
-
 
 # scales equally the image closed to the target size, and new size > target size
 class CustomResize:
@@ -104,7 +102,7 @@ class BaseDataset(Dataset):
         
         # original size
         original_width, original_height = raw_image.size
-        original_sizes = torch.tensor([original_height, original_width])
+        original_sizes = (original_height, original_width)
 
         image = self.train_resize(raw_image)
         if self.random_flip and random.random() < 0.5:
@@ -117,7 +115,7 @@ class BaseDataset(Dataset):
         else:
             y1, x1, h, w = self.train_crop.get_params(image, self.size)
             image = crop(image, y1, x1, h, w)
-        crop_top_lefts = torch.tensor([y1, x1])
+        crop_top_lefts = (y1, x1)
         image = self.train_transforms(image)
         
         # get text and tokenize
