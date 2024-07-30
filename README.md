@@ -50,7 +50,7 @@ model = AutoModelForCausalLM.from_pretrained(
     trust_remote_code=True
 ).to(device).eval()
 
-gen_kwargs = {"max_length": 2500, "do_sample": True, "top_k": 1}
+gen_kwargs = {"max_new_tokens": 77, "do_sample": True, "top_k": 1}
 with torch.no_grad():
     outputs = model.generate(**inputs, **gen_kwargs)
     outputs = outputs[:, inputs['input_ids'].shape[1]:]
