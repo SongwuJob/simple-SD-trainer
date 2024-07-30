@@ -18,12 +18,14 @@ To this end, we will keep a complete record of how these abilities are trained, 
   - [Virtual tryon]
 
 ## Data Process
+
+### Image caption
 Image caption is an important part of training text-to-image models, which can be used in Lora, ControlNet, etc. Common caption methods can be broadly categorized into two types:
 
-- **SDWebUI Tagger**: You can use some tagger in webui (essentially a multi-classification model) to caption.
-- **VLM**: VLM provides a better understanding of the dense semantics in the image, and is able to caption the image in detail, which is our recommended way.
+- **SDWebUI Tagger**: This method involves using a tagger in the web UI, which essentially functions as a multi-classification model, to generate captions.
+- **VLM**: VLM offers a better understanding of the dense semantics within an image，and is capable of providing detailed captions, which is our recommended approach.
 
-In our experiments, we use [GLM-4v-9b](https://github.com/THUDM/GLM-4) to caption our training images, we use ``query = "please describe this image into prompt words, and reply us with keywords like \"xxx, xxx, xxx, xxx\""`` to make VLM output the image caption. For example, we can employ GLM-4v to caption the single image as follows:
+In our experiments, we use [GLM-4v-9b](https://github.com/THUDM/GLM-4) to caption our trained images. Specifically, we use ``query = "please describe this image into prompt words, and reply us with keywords like \"xxx, xxx, xxx, xxx\""`` prompt the VLM to output the image caption. For example, we can employ GLM-4v to caption the single image as follows:
 
 ```python
 import torch
@@ -55,3 +57,18 @@ with torch.no_grad():
     caption = tokenizer.decode(outputs[0], skip_special_tokens=True)
     print(caption)
 ```
+
+For large amounts of training data, we can use ``caption.py`` in the ``data_process`` directory. Specifically, you can use ``use_buckets = True`` to conduct [ARB (Aspect Ratio Bucket)](https://civitai.com/articles/2056), there are two ways to preprocess trained images:
+
+- **single resolution**: just provide the single resolution images, don't need conduct ARB.
+```bash
+python data_process/caption.py --train_image_dir "/path/to/your/data" --trigger_word "KongFu Panda"
+```
+
+- **multiple resolution**: provide multiple resolution images, which might need enough trained images and average size distribution.
+```bash
+python data_process/caption.py --train_image_dir "/path/to/your/data" --use_buckets --trigger_word "KongFu Panda"
+```
+
+
+
