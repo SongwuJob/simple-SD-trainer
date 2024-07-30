@@ -79,7 +79,7 @@ The processed json format as follows:
     },
     {
         "image": "2.jpg",
-        "text": "boy, Girl, Denim Jacket, Newspaper, Urban, Graffiti, Sunglasses, Earrings, Casual, Back-to-Back, Friendship, Cultural, Street Art, Vibrant Colors, Modern, Cool, Trendy, Intimate, Dynamic Composition, Illustration, Asian Style, Youthful, Protective Stance, Warm Atmosphere, Fashion Forward, Artistic Background, Daily"
+        "text": "cute, anime-style, girl, long, wavy, hair, green, plaid, blazer, blush, big, expressive, eyes, hoop, earrings, soft, pastel, colors, youthful, innocent, charming, fashionable"
     }
 ]
 ```
