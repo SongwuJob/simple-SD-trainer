@@ -74,7 +74,7 @@ python data_process/caption.py --train_image_dir "/path/to/your/data" --use_buck
 Stable Diffusion XL (SDXL) is an advanced variant of [IDM](https://arxiv.org/abs/2112.10752) designed to generate high-quality images from textual descriptions. Building upon the original SD1.5(2.1), SDXL offers enhanced capabilities and improved performance, making it a powerful tool for various applications in the field of generative AI.
 
 ### Lora
-Our Lora training code is modified from [diffusers](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image) and [kohya-ss](https://github.com/kohya-ss/sd-scripts). 
+Our Lora training code [train_text_to_image_lora_sdxl.py](/SDXL/train_text_to_image_lora_sdxl.py) is modified from [diffusers](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image) and [kohya-ss](https://github.com/kohya-ss/sd-scripts). 
 
 - We rewrite the dataset as ``BaseDataset.py`` and ``ARBDataset.py`` in ``dataset`` directory.
 - We remove some parameters inside the diffusers for simplying training process, and adjust some settings.
