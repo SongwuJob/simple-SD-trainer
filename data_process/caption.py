@@ -47,7 +47,7 @@ def resize_image(image, target_sizes):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--train_image_dir', type=str, default="images", help= "save data.json path")
-    parser.add_argument('--query', type=str, default="please describe this image into prompt words, and reply us with keywords like \"xxx, xxx, xxx, xxx\"", help= "the query for vlm model")
+    parser.add_argument('--query', type=str, default="please describe this image into prompt words, and reply us with keywords like xxx, xxx, xxx, xxx", help= "the query for vlm model")
     parser.add_argument('--use_buckets', action="store_true", help= "perform aspect ratio bucket")
     parser.add_argument('--device', type=str, default="cuda", help= "device")
     parser.add_argument('--max_sequence_length', type=int, default=77, help="clip max length is 77")
