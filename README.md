@@ -26,7 +26,7 @@ Image caption is an important part of training text-to-image models, which can b
 - **SDWebUI Tagger**: This method involves using a tagger in the web UI, which essentially functions as a multi-classification model, to generate captions.
 - **VLM**: VLM offers a better understanding of the dense semantics within an image，and is capable of providing detailed captions, which is our recommended approach.
 
-In our experiments, we use [GLM-4v-9b](https://github.com/THUDM/GLM-4) to caption our trained images. Specifically, we use ``query = "please describe this image into prompt words, and reply us with keywords like \"xxx, xxx, xxx, xxx\""`` prompt the VLM to output the image caption. For example, we can employ GLM-4v to caption the single image as follows:
+In our experiments, we use [GLM-4v-9b](https://github.com/THUDM/GLM-4) to caption our trained images. Specifically, we use ``query = "please describe this image into prompt words, and reply us with keywords like xxx, xxx, xxx, xxx"`` prompt the VLM to output the image caption. For example, we can employ GLM-4v to caption the single image as follows:
 
 ```python
 import torch
