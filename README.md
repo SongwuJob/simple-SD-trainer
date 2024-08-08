@@ -185,5 +185,35 @@ accelerate launch ./SDXL/train_controlnet_sdxl.py \
 ```
 
 ### IP-Adapter
-Ip-adapter is a training-free method personalized text-to-image generation, available in multiple versions such as IP-Adapter-Plus and IP-Adapter-FaceID. Here,we reproduce the training code for the IP-Adapter-Plus, allowing you to fine-tune it with a small dataset. For instance, you can finetune IP-Adapter-Plus to achieve personalized anime image generation in a training-free way, with an [anime dataset](https://huggingface.co/datasets/hipete12/anime-image). Speifically, you can use ``caption.py`` to acquire the ``data.json``, thereby build a complete anime dataset.
+IP-adapter is a training-free method for personalized text-to-image generation, available in multiple versions such as IP-Adapter-Plus and IP-Adapter-FaceID. Here,we reproduce the training code for the IP-Adapter-Plus, allowing you to fine-tune it with a small dataset. For instance, you can finetune IP-Adapter-Plus to achieve personalized anime image generation in a training-free way, with an [anime dataset](https://huggingface.co/datasets/hipete12/anime-image). Speifically, you can use ``caption.py`` in the ``data_process`` directory to acquire the ``data.json``, thereby build a complete anime dataset.
 
+Our training code [train_ip_adapter_plus_sdxl.py](/SDXL/train_ip_adapter_plus_sdxl.py) is modified from [IP-adapter](https://github.com/tencent-ailab/IP-Adapter/tree/main). 
+
+- We rewrite the dataset as ``IPAdapterDataset.py`` in ``dataset`` directory.
+- We conduct the IP-Adapter-Plus-SDXL for better understanding the textual information.
+
+Essentially the training objective of the IP-adapter is a reconstruction task, therefore the dataset is in a format similar to that of Lora finetuning. After captioning the complete trained images, we can conduct ``sh train_ip_adapter_plus_sdxl.sh`` to train your lora model:
+```bash
+export MODEL_NAME="/path/to/your/stable-diffusion-xl-base-1.0"
+export PRETRAIN_IP_ADAPTER_PATH="/path/to/your/.../sdxl_models/ip-adapter-plus_sdxl_vit-h.bin"
+export IMAGE_ENCODER_PATH="/path/to/your/.../models/image_encoder"
+export OUTPUT_DIR="ip-adapter"
+export TRAIN_DIR="images"
+export JSON_FILE="images/data.json"
+
+accelerate launch ./SDXL/IP-adapter/train_ip_adapter_plus_sdxl.py \
+  --pretrained_model_name_or_path=$MODEL_NAME \
+  --image_encoder_path=$IMAGE_ENCODER_PATH \
+  --pretrained_ip_adapter_path=$PRETRAIN_IP_ADAPTER_PATH \
+  --data_json_file=$JSON_FILE \
+  --data_root_path=$TRAIN_DIR \
+  --mixed_precision="fp16" \
+  --height=1024 --width=1024\
+  --train_batch_size=2 \
+  --dataloader_num_workers=4 \
+  --learning_rate=1e-05 \
+  --weight_decay=0.01 \
+  --output_dir=$OUTPUT_DIR \
+  --save_steps=10000 \
+  --seed=1337 \
+```
