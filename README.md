@@ -37,7 +37,7 @@ device = "cuda"
 
 tokenizer = AutoTokenizer.from_pretrained("THUDM/glm-4v-9b", trust_remote_code=True)
 
-query = "please describe this image into prompt words, and reply us with keywords like \"xxx, xxx, xxx, xxx\""
+query = "please describe this image into prompt words, and reply us with keywords like xxx, xxx, xxx, xxx"
 image = Image.open("your image").convert('RGB')
 inputs = tokenizer.apply_chat_template([{"role": "user", "image": image, "content": query}],
                                        add_generation_prompt=True, tokenize=True, return_tensors="pt",
