@@ -1,5 +1,5 @@
 # simple-SD-trainer
-As a AIGC rookie, I want to go ahead and try to reproduce some basic abilities of the text-to-image model, including Lora, ControlNet, IP-adapter, where you can use these abilities to realize a range of interesting AIGC plays!
+As a AIGC rookie, I want to go ahead and try to reproduce some basic abilities of the text-to-image model, including Lora, ControlNet, IP-adapter, where you can use these abilities to realize a range of interesting AIGC plays! (if you want, we could add some detailed notes for easy reading)
 
 To this end, we will keep a complete record of how these abilities are trained, and our future plans can be broadly categorized into:
 
@@ -128,7 +128,7 @@ Our ControlNet training code [train_controlnet_sdxl.py](/SDXL/train_controlnet_s
 - We rewrite the dataset as ``ControlNetDataset.py`` in ``dataset`` directory.
 - We rewrite the data load process, and remove some parameters inside the diffusers for simplying training process.
 
-To test training your controlnet, you can download a controlnet data on hugging face, like [controlnet_sdxl_animal](https://huggingface.co/datasets/HZ0504/controlnet_sdxl_animal/tree/main). Meanwhile, youneed to simply preprocess these training data as follows:
+To test training your controlnet, you can download a controlnet data on hugging face, like [controlnet_sdxl_animal](https://huggingface.co/datasets/HZ0504/controlnet_sdxl_animal/tree/main). Meanwhile, you need to simply preprocess these training data as follows:
 
 - Training data directory structure
   ```shell
