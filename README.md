@@ -10,6 +10,7 @@ To this end, we will keep a complete record of how these abilities are trained, 
   - [IP-adapter]
   - [AnimateDiff]
 - [DiT]
+  - [AuraFlow]
   - [PixArt]
   - [Stable Diffusion 3]
 - [Application]
