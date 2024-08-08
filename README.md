@@ -7,7 +7,7 @@ To this end, we will keep a complete record of how these abilities are trained, 
 - [SDXL](#sdxl)
   - [Lora](#lora)
   - [ControlNet](#controlnet)
-  - [IP-adapter]
+  - [IP-adapter](#ip-adapter)
   - [AnimateDiff]
 - [DiT]
   - [AuraFlow]
@@ -184,4 +184,6 @@ accelerate launch ./SDXL/train_controlnet_sdxl.py \
  --seed=1337 \
 ```
 
+### IP-Adapter
+Ip-adapter is a training-free method personalized text-to-image generation, available in multiple versions such as IP-Adapter-Plus and IP-Adapter-FaceID. Here,we reproduce the training code for the IP-Adapter-Plus, allowing you to fine-tune it with a small dataset. For instance, you can finetune IP-Adapter-Plus to achieve personalized anime image generation in a training-free way, with an [anime dataset](https://huggingface.co/datasets/hipete12/anime-image). Speifically, you can use ``caption.py`` to acquire the ``data.json``, thereby build a complete anime dataset.
 
