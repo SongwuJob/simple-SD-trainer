@@ -6,7 +6,7 @@ To this end, we will keep a complete record of how these abilities are trained, 
 - [Data Process](#data-process)
 - [SDXL](#sdxl)
   - [Lora](#lora)
-  - [ControlNet]
+  - [ControlNet](#controlnet)
   - [IP-adapter]
   - [AnimateDiff]
 - [DiT]
@@ -94,6 +94,41 @@ Our Lora training code [train_text_to_image_lora_sdxl.py](/SDXL/train_text_to_im
 - We remove some parameters inside the diffusers for simplying training process, and adjust some settings.
 
 After captioning the complete trained images, we can conduct ``sh train_text_to_image_lora_sdxl.sh`` to train your lora model:
+```bash
+export MODEL_NAME="/path/to/your/model"
+export OUTPUT_DIR="lora/rank32"
+export TRAIN_DIR="/path/to/your/data"
+export JSON_FILE="/path/to/your/data/data.json"
+
+accelerate launch  ./SDXL/train_text_to_image_lora_sdxl.py \
+  --pretrained_model_name_or_path=$MODEL_NAME \
+  --train_data_dir=$TRAIN_DIR \
+  --output_dir=$OUTPUT_DIR \
+  --json_file=$JSON_FILE \
+  --height=1024 --width=1024  \
+  --train_batch_size=2 \
+  --random_flip \
+  --rank=32 --text_encoder_rank=8 \
+  --gradient_accumulation_steps=2 \
+  --num_train_epochs=30 --repeats=5 \
+  --checkpointing_steps=1000 \
+  --learning_rate=1e-4 \
+  --text_encoder_lr=1e-5 \
+  --lr_scheduler="constant_with_warmup" \
+  --lr_warmup_steps=500 \
+  --mixed_precision="fp16" \
+  --train_text_encoder \
+  --seed=1337 \
+```
+
+### ControlNet
+Our Lora training code [train_controlnet_sdxl.py](/SDXL/train_controlnet_sdxl.py) is modified from [diffusers](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image). 
+
+- We rewrite the dataset as ``ControlNetDataset.py`` in ``dataset`` directory.
+- We rewrote the data load process, and remove some parameters inside the diffusers for simplying training process.
+
+To test training your controlnet, you can download a controlnet data on hugging face, like [controlnet_sdxl_animal](https://huggingface.co/datasets/HZ0504/controlnet_sdxl_animal/tree/main).
+
 ```bash
 export MODEL_NAME="/path/to/your/model"
 export OUTPUT_DIR="lora/rank32"
