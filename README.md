@@ -192,7 +192,7 @@ Our training code [train_ip_adapter_plus_sdxl.py](/SDXL/train_ip_adapter_plus_sd
 - We rewrite the dataset as ``IPAdapterDataset.py`` in ``dataset`` directory.
 - We conduct the IP-Adapter-Plus-SDXL for better understanding the textual information.
 
-Essentially the training objective of the IP-adapter is a reconstruction task, therefore the dataset is in a format similar to that of Lora finetuning. After captioning the complete trained images, we can conduct ``sh train_ip_adapter_plus_sdxl.sh`` to train your lora model:
+Essentially the training objective of the IP-adapter is a reconstruction task, therefore the dataset is in a format similar to that of Lora finetuning. After captioning the complete trained images, we can conduct ``sh train_ip_adapter_plus_sdxl.sh`` to train your ip-adapter model:
 ```bash
 export MODEL_NAME="/path/to/your/stable-diffusion-xl-base-1.0"
 export PRETRAIN_IP_ADAPTER_PATH="/path/to/your/.../sdxl_models/ip-adapter-plus_sdxl_vit-h.bin"
