@@ -185,7 +185,7 @@ accelerate launch ./SDXL/train_controlnet_sdxl.py \
 ```
 
 ### IP-Adapter
-IP-adapter is a training-free method for personalized text-to-image generation, available in multiple versions such as IP-Adapter-Plus and IP-Adapter-FaceID. Here,we reproduce the training code for the IP-Adapter-Plus, allowing you to fine-tune it with a small dataset. For instance, you can finetune IP-Adapter-Plus to achieve personalized anime image generation in a training-free way, with an [anime dataset](https://huggingface.co/datasets/hipete12/anime-image). Speifically, you can use ``caption.py`` in the ``data_process`` directory to acquire the ``data.json``, thereby build a complete anime dataset.
+IP-adapter is a training-free method for personalized text-to-image generation, available in multiple versions such as IP-Adapter-Plus and IP-Adapter-FaceID. Here,we reproduce the training code for the IP-Adapter-Plus, allowing you to fine-tune it with a small dataset. For instance, you can fine-tune IP-Adapter-Plus to achieve personalized anime image generation with an [anime dataset](https://huggingface.co/datasets/hipete12/anime-image). Speifically, you can use ``caption.py`` in the ``data_process`` directory to acquire the ``data.json``, thereby build a complete anime dataset.
 
 Our training code [train_ip_adapter_plus_sdxl.py](/SDXL/train_ip_adapter_plus_sdxl.py) is modified from [IP-adapter](https://github.com/tencent-ailab/IP-Adapter/tree/main). 
 
