@@ -167,7 +167,7 @@ export OUTPUT_DIR="controlnet"
 export TRAIN_DIR="controlnet_data"
 export JSON_FILE="controlnet_data/data.json"
 
-accelerate launch ./SDXL/ControlNet/train_controlnet_sdxl.py \
+accelerate launch ./SDXL/train_controlnet_sdxl.py \
  --pretrained_model_name_or_path=$MODEL_DIR \
  --train_data_dir=$TRAIN_DIR \
  --output_dir=$OUTPUT_DIR \
