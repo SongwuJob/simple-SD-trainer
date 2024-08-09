@@ -771,12 +771,6 @@ def main(args):
                 noisy_latents = noise_scheduler.add_noise(latents, noise, timesteps)
 
                 # ControlNet conditioning.
-                # added_cond_kwargs=batch["unet_added_conditions"]
-                # print("add_time_ids:")
-                # print(added_cond_kwargs["time_ids"].shape)
-                # print("pooled_prompt_embeds:")
-                # print(added_cond_kwargs["text_embeds"].shape)
-
                 controlnet_image = batch["conditioning_pixel_values"].to(dtype=weight_dtype)
                 down_block_res_samples, mid_block_res_sample = controlnet(
                     noisy_latents,
