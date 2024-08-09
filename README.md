@@ -131,18 +131,18 @@ Our ControlNet training code [train_controlnet_sdxl.py](/SDXL/train_controlnet_s
 To test training your controlnet, you can download a controlnet data on hugging face, like [controlnet_sdxl_animal](https://huggingface.co/datasets/HZ0504/controlnet_sdxl_animal/tree/main). Meanwhile, you need to simply preprocess these training data as follows:
 
 - Training data directory structure
-  ```shell
-   controlnet_data
-      ├──images/  (image files)
-      │  ├──0.png
-      │  ├──1.png
-      │  ├──......
-      ├──conditioning_images/  (conditioning image files)
-      │  ├──0.png
-      │  ├──1.png
-      │  ├──......
-      ├──data.json
-   ```
+```shell
+controlnet_data
+  ├──images/  (image files)
+  │  ├──0.png
+  │  ├──1.png
+  │  ├──......
+  ├──conditioning_images/  (conditioning image files)
+  │  ├──0.png
+  │  ├──1.png
+  │  ├──......
+  ├──data.json
+ ```
 
 - The ``data.json`` format
 ```json
