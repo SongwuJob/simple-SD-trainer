@@ -5,7 +5,7 @@ export OUTPUT_DIR="ip-adapter"
 export TRAIN_DIR="images"
 export JSON_FILE="images/data.json"
 
-accelerate launch ./SDXL/IP-adapter/train_ip_adapter_plus_sdxl.py \
+accelerate launch ./SDXL/train_ip_adapter_plus_sdxl.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
   --image_encoder_path=$IMAGE_ENCODER_PATH \
   --pretrained_ip_adapter_path=$PRETRAIN_IP_ADAPTER_PATH \
