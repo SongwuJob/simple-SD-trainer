@@ -190,7 +190,7 @@ IP-adapter is a training-free method for personalized text-to-image generation, 
 Our training code [train_ip_adapter_plus_sdxl.py](/SDXL/train_ip_adapter_plus_sdxl.py) is modified from [IP-adapter](https://github.com/tencent-ailab/IP-Adapter/tree/main). 
 
 - We rewrite the dataset as ``IPAdapterDataset.py`` in ``dataset`` directory.
-- We conduct the IP-Adapter-Plus-SDXL for better understanding the textual information.
+- We conduct the IP-Adapter-Plus-SDXL for better understanding the refined image information.
 
 Essentially the training objective of the IP-adapter is a reconstruction task, therefore the dataset is in a format similar to that of Lora finetuning. After captioning the complete trained images, we can conduct ``sh train_ip_adapter_plus_sdxl.sh`` to train your ip-adapter model:
 ```bash
