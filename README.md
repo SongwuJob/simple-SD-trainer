@@ -8,7 +8,7 @@ To this end, we will keep a complete record of how these abilities are trained, 
   - [Lora](#lora)
   - [ControlNet](#controlnet)
   - [IP-adapter](#ip-adapter)
-  - [AnimateDiff]
+  - [AnimateDiff](#animatediff)
 - [DiT]
   - [AuraFlow]
   - [PixArt]
@@ -185,7 +185,7 @@ accelerate launch ./SDXL/train_controlnet_sdxl.py \
 ```
 
 ### IP-Adapter
-IP-adapter is a training-free method for personalized text-to-image generation, available in multiple versions such as IP-Adapter-Plus and IP-Adapter-FaceID. Here,we reproduce the training code for the IP-Adapter-Plus, allowing you to fine-tune it with a small dataset. For instance, you can fine-tune IP-Adapter-Plus to achieve personalized anime image generation with an [anime dataset](https://huggingface.co/datasets/hipete12/anime-image). Speifically, you can use ``caption.py`` in the ``data_process`` directory to acquire the ``data.json``, thereby build a complete anime dataset.
+IP-adapter is a training-free method for personalized text-to-image generation, available in multiple versions such as IP-Adapter-Plus and IP-Adapter-FaceID. Here, we reproduce the training code for the IP-Adapter-Plus, allowing you to fine-tune it with a small dataset. For instance, you can fine-tune IP-Adapter-Plus to achieve personalized anime image generation with an [anime dataset](https://huggingface.co/datasets/hipete12/anime-image). Speifically, you can use ``caption.py`` in the ``data_process`` directory to acquire the ``data.json``, thereby build a complete anime dataset.
 
 Our training code [train_ip_adapter_plus_sdxl.py](/SDXL/train_ip_adapter_plus_sdxl.py) is modified from [IP-adapter](https://github.com/tencent-ailab/IP-Adapter/tree/main). 
 
@@ -217,3 +217,30 @@ accelerate launch ./SDXL/train_ip_adapter_plus_sdxl.py \
   --save_steps=10000 \
   --seed=1337 \
 ```
+
+### AnimateDiff
+AnimateDiff is an open-source text-to-video (T2V) technique that extends the original text-to-image model by incorporating a motion module and learning reliable motion priors from large-scale video datasets. Here, we rewrite the training code for AnimateDiff using LoRA. Note that we use the latest [Diffusers](https://github.com/huggingface/diffusers) package to reproduce the training code on the **SD1.5** model:
+
+- Our training code reference [AnimationDiff with train](https://github.com/tumurzakov/AnimateDiff), and use the latest Diffusers for simplicity.
+- We rewrite the dataset as ``AnimateDiffDataset.py`` in ``dataset`` directory.
+
+Note that we employ lora to finetune the pretrained AnimateDiff, it can greatly reduce CUDA memory requirements. If you want to finetune the animatediff model, you can a video data on hugging face, like [webvid-10M]([https://huggingface.co/datasets/HZ0504/controlnet_sdxl_animal/tree/main](https://huggingface.co/datasets/TempoFunk/webvid-10M?row=0)). Meanwhile, the processed ``data.json`` format as follows:
+```json
+[
+    {
+        "video": "stock-footage-grilled-chicken-wings.mp4",
+        "text": "Grilled chicken wings."
+    },
+    {
+        "video": "stock-footage-waving-australian-flag-on-top-of-a-building.mp4",
+        "text": "Waving Australian flag on top of a building."
+    }
+]
+```
+
+
+
+
+
+
+
