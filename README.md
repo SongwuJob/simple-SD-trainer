@@ -224,7 +224,7 @@ AnimateDiff is an open-source text-to-video (T2V) technique that extends the ori
 - Our training code reference [AnimationDiff with train](https://github.com/tumurzakov/AnimateDiff), and use the latest Diffusers for simplicity.
 - We rewrite the dataset as ``AnimateDiffDataset.py`` in ``dataset`` directory.
 
-Note that we employ lora to finetune the pretrained AnimateDiff, it can greatly reduce CUDA memory requirements. If you want to finetune the animatediff model, you can download a video data on hugging face, like [webvid-10M](https://huggingface.co/datasets/HZ0504/controlnet_sdxl_animal/tree/main](https://huggingface.co/datasets/TempoFunk/webvid-10M?row=0). Meanwhile, the processed ``data.json`` format as follows:
+Note that we employ lora to finetune the pretrained AnimateDiff, it can greatly reduce CUDA memory requirements. If you want to finetune the animatediff model, you can download a video data on hugging face, like [webvid10M](https://huggingface.co/datasets/HZ0504/controlnet_sdxl_animal/tree/main](https://huggingface.co/datasets/TempoFunk/webvid-10M?row=0). Meanwhile, the processed ``data.json`` format as follows:
 ```json
 [
     {
@@ -236,6 +236,35 @@ Note that we employ lora to finetune the pretrained AnimateDiff, it can greatly 
         "text": "Waving Australian flag on top of a building."
     }
 ]
+```
+
+Specifically, we use ``PEFT`` for finetuning animatediff model with Lora as follows:
+```python
+noise_scheduler = DDPMScheduler.from_pretrained(args.pretrained_model_name_or_path, subfolder="scheduler")
+tokenizer = CLIPTokenizer.from_pretrained(args.pretrained_model_name_or_path, subfolder="tokenizer", revision=args.revision)
+text_encoder = CLIPTextModel.from_pretrained(args.pretrained_model_name_or_path, subfolder="text_encoder", revision=args.revision)
+vae = AutoencoderKL.from_pretrained(args.pretrained_model_name_or_path, subfolder="vae", revision=args.revision, variant=args.variant)
+unet = UNet2DConditionModel.from_pretrained(args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision, variant=args.variant)
+
+# Animatediff: UNet2DConditionModel -> UNetMotionModel
+motion_adapter = MotionAdapter.from_pretrained(args.motion_module, torch_dtype=torch.float16)
+unet = UNetMotionModel.from_unet2d(unet, motion_adapter)
+
+# freeze parameters of models to save more memory
+unet.requires_grad_(False)
+vae.requires_grad_(False)
+text_encoder.requires_grad_(False)
+
+# use PEFT to load Lora, finetune the parameters of SD model and motion_adapter.
+unet_lora_config = LoraConfig(
+    r=args.rank,
+    lora_alpha=args.rank,
+    init_lora_weights="gaussian",
+    target_modules=["to_k", "to_q", "to_v", "to_out.0"],
+)
+
+# Add adapter and make sure the trainable params are in float32.
+unet.add_adapter(unet_lora_config)
 ```
 
 After preparing the complete trained videos, we can conduct ``sh train_animatediff_with_lora.sh`` to train your animatediff model:
