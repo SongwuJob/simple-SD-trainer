@@ -224,7 +224,7 @@ AnimateDiff is an open-source text-to-video (T2V) technique that extends the ori
 - Our training code reference [AnimationDiff with train](https://github.com/tumurzakov/AnimateDiff), and use the latest Diffusers for simplicity.
 - We rewrite the dataset as ``AnimateDiffDataset.py`` in ``dataset`` directory.
 
-Note that we employ lora to finetune the pretrained AnimateDiff, it can greatly reduce CUDA memory requirements. If you want to finetune the animatediff model, you can download a video data on hugging face, like [webvid10M](https://huggingface.co/datasets/HZ0504/controlnet_sdxl_animal/tree/main](https://huggingface.co/datasets/TempoFunk/webvid-10M?row=0). Meanwhile, the processed ``data.json`` format as follows:
+Note that we employ lora to finetune the pretrained AnimateDiff, it can greatly reduce CUDA memory requirements. If you want to finetune the animatediff model, you can download a video data on hugging face, like [webvid10M](https://huggingface.co/datasets/TempoFunk/webvid-10M?row=0). Meanwhile, the processed ``data.json`` format as follows:
 ```json
 [
     {
