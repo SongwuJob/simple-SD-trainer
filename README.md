@@ -224,7 +224,7 @@ AnimateDiff is an open-source text-to-video (T2V) technique that extends the ori
 - Our training code reference [AnimationDiff with train](https://github.com/tumurzakov/AnimateDiff), and use the latest Diffusers for simplicity.
 - We rewrite the dataset as ``AnimateDiffDataset.py`` in ``dataset`` directory.
 
-Note that we employ lora to finetune the pretrained AnimateDiff, it can greatly reduce CUDA memory requirements. If you want to finetune the animatediff model, you can a video data on hugging face, like [webvid-10M]([https://huggingface.co/datasets/HZ0504/controlnet_sdxl_animal/tree/main](https://huggingface.co/datasets/TempoFunk/webvid-10M?row=0)). Meanwhile, the processed ``data.json`` format as follows:
+Note that we employ lora to finetune the pretrained AnimateDiff, it can greatly reduce CUDA memory requirements. If you want to finetune the animatediff model, you can download a video data on hugging face, like [webvid-10M](https://huggingface.co/datasets/HZ0504/controlnet_sdxl_animal/tree/main](https://huggingface.co/datasets/TempoFunk/webvid-10M?row=0). Meanwhile, the processed ``data.json`` format as follows:
 ```json
 [
     {
@@ -237,6 +237,34 @@ Note that we employ lora to finetune the pretrained AnimateDiff, it can greatly 
     }
 ]
 ```
+
+After preparing the complete trained videos, we can conduct ``sh train_animatediff_with_lora.sh`` to train your animatediff model:
+```bash
+export MODEL_NAME="/path/to/your/Realistic_Vision_V5.1_noVAE"
+export MOTION_MODULE="/path/to/your/animatediff-motion-adapter-v1-5-2"
+export OUTPUT_DIR="animatediff"
+export TRAIN_DIR="webvid"
+export JSON_FILE="webvid/data.json"
+
+accelerate launch  ./SDXL/AnimateDiff/train_animatediff_with_lora.py \
+  --pretrained_model_name_or_path=$MODEL_NAME \
+  --motion_module=$MOTION_MODULE \
+  --train_data_dir=$TRAIN_DIR \
+  --output_dir=$OUTPUT_DIR \
+  --json_file=$JSON_FILE \
+  --resolution=512  \
+  --train_batch_size=1 \
+  --rank=8 \
+  --gradient_accumulation_steps=2 \
+  --num_train_epochs=10 \
+  --checkpointing_steps=10000 \
+  --learning_rate=1e-5 \
+  --lr_scheduler="constant_with_warmup" \
+  --lr_warmup_steps=500 \
+  --mixed_precision="fp16" \
+  --seed=1337 \
+```
+
 
 
 
