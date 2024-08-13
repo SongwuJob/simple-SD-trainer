@@ -246,7 +246,7 @@ export OUTPUT_DIR="animatediff"
 export TRAIN_DIR="webvid"
 export JSON_FILE="webvid/data.json"
 
-accelerate launch  ./SDXL/AnimateDiff/train_animatediff_with_lora.py \
+accelerate launch  ./SDXL/train_animatediff_with_lora.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
   --motion_module=$MOTION_MODULE \
   --train_data_dir=$TRAIN_DIR \
