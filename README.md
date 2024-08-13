@@ -266,20 +266,6 @@ unet_lora_config = LoraConfig(
 
 # Add adapter and make sure the trainable params are in float32.
 unet.add_adapter(unet_lora_config)
-
-#########################  finsh training  #########################
-
-# Save the lora layers
-accelerator.wait_for_everyone()
-if accelerator.is_main_process:
-    unet = unet.to(torch.float32)
-    unwrapped_unet = unwrap_model(unet)
-    unet_lora_state_dict = convert_state_dict_to_diffusers(get_peft_model_state_dict(unwrapped_unet))
-    AnimateDiffPipeline.save_lora_weights(
-        save_directory=args.output_dir,
-        unet_lora_layers=unet_lora_state_dict,
-        safe_serialization=True,
-    )
 ```
 
 After preparing the complete trained videos, we can conduct ``sh train_animatediff_with_lora.sh`` to train your animatediff model:
