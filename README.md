@@ -300,10 +300,39 @@ accelerate launch  ./stable_diffusion/train_animatediff_with_lora.py \
 DiT (Diffusion Transformer) is a pure transformer architecture for diffusion models, which has better performance and scaling compared to SDXL. It utilizes the powerful modeling capabilities of Transformer and the step-by-step denoising process of the diffusion model to generate high-quality images.
 
 # Stable diffusion 3
-Our Lora training code [train_text_to_image_lora_sd3.py](/stable_diffusion/train_text_to_image_lora_sdxl.py) is modified from [diffusers](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image), referenced by [train_dreambooth_lora_sd3.py](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/train_dreambooth_lora_sd3.py). 
+Our Lora training code [train_text_to_image_lora_sd3.py](/stable_diffusion/train_text_to_image_lora_sdxl.py) is modified from [diffusers](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image), referenced by [train_dreambooth_lora_sd3.py](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/train_dreambooth_lora_sd3.py). There are still a lot of [problems](https://www.reddit.com/r/StableDiffusion/comments/1e6k59c/solution_discovered_partially_implemented_for_sd3/) with SD3 training, this code is just a simple training code based on diffusers, which looks like effective when setting the max_sequence_length=77.
 
-- We rewrite the dataset as ``BaseDataset.py`` and ``ARBDataset.py`` in ``dataset`` directory.
+- Data preprocessing (image caption) and ``data.json`` format are consistent with SDXL.
+- We rewrite the dataset as ``SD3BaseDataset.py`` in ``dataset`` directory.
 - We remove some parameters inside the diffusers for simplying training process, and adjust some settings.
+- You need to set a larger rank for the transformer model to have a good effect, recommend 64-128 (64 for smaller training data, 128 for more)
+
+After captioning the complete trained images, we can conduct ``sh train_text_to_image_lora_sd3.sh`` to train your lora model:
+```bash
+export MODEL_NAME="/path/to/your/stable-diffusion-3-medium-diffusers"
+export OUTPUT_DIR="lora/rank32"
+export TRAIN_DIR="/path/to/your/data"
+export JSON_FILE="/path/to/your/data/data.json"
+
+accelerate launch ./stable_diffusion/train_text_to_image_lora_sd3.py \
+  --pretrained_model_name_or_path=$MODEL_NAME \
+  --train_data_dir=$TRAIN_DATA_DIR \
+  --output_dir=$OUTPUT_DIR \
+  --json_file=$JSON_FILE \
+  --mixed_precision="fp16" \
+  --height=1024 --width=1024  \
+  --random_flip \
+  --train_batch_size=2 \
+  --checkpointing_steps=1000 \
+  --gradient_accumulation_steps=2 \
+  --learning_rate=1e-4 \
+  --text_encoder_lr=5e-6 \
+  --rank=64 --text_encoder_rank=8 \
+  --lr_scheduler="constant_with_warmup" --lr_warmup_steps=500 \
+  --num_train_epochs=30 \
+  --scale_lr --train_text_encoder \
+  --seed=1337
+```
 
 
 
