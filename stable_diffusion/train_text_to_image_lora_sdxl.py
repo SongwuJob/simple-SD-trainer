@@ -1,4 +1,4 @@
-"""Fine-tuning script for Stable Diffusion XL for text2image with support for LoRA."""
+"""Fine-tuning script for Stable Diffusion 3 for text2image with support for LoRA."""
 import argparse
 import logging
 import math
