@@ -9,10 +9,11 @@ To this end, we will keep a complete record of how these abilities are trained, 
   - [ControlNet](#controlnet)
   - [IP-adapter](#ip-adapter)
   - [AnimateDiff](#animatediff)
-- [DiT]
+- [DiT](#DiT)
+  - [Stable Diffusion 3](#stable-diffusion-3)
+  - [Flux]
   - [AuraFlow]
   - [PixArt]
-  - [Stable Diffusion 3]
 - [Application]
   - [Personalized avatar]
   - [Style Transformation]
@@ -295,6 +296,7 @@ accelerate launch  ./stable_diffusion/train_animatediff_with_lora.py \
   --seed=1337 \
 ```
 
+## DiT
 
 
 
