@@ -90,7 +90,7 @@ The processed ``data.json`` format as follows:
 Stable Diffusion XL (SDXL) is an advanced variant of [IDM](https://arxiv.org/abs/2112.10752) designed to generate high-quality images from textual descriptions. Building upon the original SD1.5(2.1), SDXL offers enhanced capabilities and improved performance, making it a powerful tool for various applications in the field of generative AI.
 
 ### Lora
-Our Lora training code [train_text_to_image_lora_sdxl.py](/SDXL/train_text_to_image_lora_sdxl.py) is modified from [diffusers](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image) and [kohya-ss](https://github.com/kohya-ss/sd-scripts). 
+Our Lora training code [train_text_to_image_lora_sdxl.py](/stable_diffusion/train_text_to_image_lora_sdxl.py) is modified from [diffusers](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image) and [kohya-ss](https://github.com/kohya-ss/sd-scripts). 
 
 - We rewrite the dataset as ``BaseDataset.py`` and ``ARBDataset.py`` in ``dataset`` directory.
 - We remove some parameters inside the diffusers for simplying training process, and adjust some settings.
@@ -124,7 +124,7 @@ accelerate launch  ./stable_diffusion/train_text_to_image_lora_sdxl.py \
 ```
 
 ### ControlNet
-Our ControlNet training code [train_controlnet_sdxl.py](/SDXL/train_controlnet_sdxl.py) is modified from [diffusers](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image). 
+Our ControlNet training code [train_controlnet_sdxl.py](/stable_diffusion/train_controlnet_sdxl.py) is modified from [diffusers](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image). 
 
 - We rewrite the dataset as ``ControlNetDataset.py`` in ``dataset`` directory.
 - We rewrite the data load process, and remove some parameters inside the diffusers for simplying training process.
@@ -188,7 +188,7 @@ accelerate launch ./stable_diffusion/train_controlnet_sdxl.py \
 ### IP-Adapter
 IP-adapter is a training-free method for personalized text-to-image generation, available in multiple versions such as IP-Adapter-Plus and IP-Adapter-FaceID. Here, we reproduce the training code for the IP-Adapter-Plus, allowing you to fine-tune it with a small dataset. For instance, you can fine-tune IP-Adapter-Plus to achieve personalized anime image generation with an [anime dataset](https://huggingface.co/datasets/hipete12/anime-image). Speifically, you can use ``caption.py`` in the ``data_process`` directory to acquire the ``data.json``, thereby build a complete anime dataset.
 
-Our training code [train_ip_adapter_plus_sdxl.py](/SDXL/train_ip_adapter_plus_sdxl.py) is modified from [IP-adapter](https://github.com/tencent-ailab/IP-Adapter/tree/main). 
+Our training code [train_ip_adapter_plus_sdxl.py](/stable_diffusion/train_ip_adapter_plus_sdxl.py) is modified from [IP-adapter](https://github.com/tencent-ailab/IP-Adapter/tree/main). 
 
 - We rewrite the dataset as ``IPAdapterDataset.py`` in ``dataset`` directory.
 - We conduct the IP-Adapter-Plus-SDXL for better understanding the refined image information.
@@ -297,8 +297,13 @@ accelerate launch  ./stable_diffusion/train_animatediff_with_lora.py \
 ```
 
 ## DiT
+DiT (Diffusion Transformer) is a pure transformer architecture for diffusion models, which has better performance and scaling compared to SDXL. It utilizes the powerful modeling capabilities of Transformer and the step-by-step denoising process of the diffusion model to generate high-quality images.
 
+# Stable diffusion 3
+Our Lora training code [train_text_to_image_lora_sd3.py](/stable_diffusion/train_text_to_image_lora_sdxl.py) is modified from [diffusers](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image), referenced by [train_dreambooth_lora_sd3.py](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/train_dreambooth_lora_sd3.py). 
 
+- We rewrite the dataset as ``BaseDataset.py`` and ``ARBDataset.py`` in ``dataset`` directory.
+- We remove some parameters inside the diffusers for simplying training process, and adjust some settings.
 
 
 
