@@ -3,7 +3,7 @@ export OUTPUT_DIR="lora/rank32"
 export TRAIN_DIR="/path/to/your/data"
 export JSON_FILE="/path/to/your/data/data.json"
 
-accelerate launch  ./SDXL/train_text_to_image_lora_sdxl.py \
+accelerate launch  ./stable_diffusion/train_text_to_image_lora_sdxl.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
   --train_data_dir=$TRAIN_DIR \
   --output_dir=$OUTPUT_DIR \
