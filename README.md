@@ -101,7 +101,7 @@ export OUTPUT_DIR="lora/rank32"
 export TRAIN_DIR="/path/to/your/data"
 export JSON_FILE="/path/to/your/data/data.json"
 
-accelerate launch  ./SDXL/train_text_to_image_lora_sdxl.py \
+accelerate launch  ./stable_diffusion/train_text_to_image_lora_sdxl.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
   --train_data_dir=$TRAIN_DIR \
   --output_dir=$OUTPUT_DIR \
@@ -167,7 +167,7 @@ export OUTPUT_DIR="controlnet"
 export TRAIN_DIR="controlnet_data"
 export JSON_FILE="controlnet_data/data.json"
 
-accelerate launch ./SDXL/train_controlnet_sdxl.py \
+accelerate launch ./stable_diffusion/train_controlnet_sdxl.py \
  --pretrained_model_name_or_path=$MODEL_DIR \
  --train_data_dir=$TRAIN_DIR \
  --output_dir=$OUTPUT_DIR \
@@ -201,7 +201,7 @@ export OUTPUT_DIR="ip-adapter"
 export TRAIN_DIR="images"
 export JSON_FILE="images/data.json"
 
-accelerate launch ./SDXL/train_ip_adapter_plus_sdxl.py \
+accelerate launch ./stable_diffusion/train_ip_adapter_plus_sdxl.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
   --image_encoder_path=$IMAGE_ENCODER_PATH \
   --pretrained_ip_adapter_path=$PRETRAIN_IP_ADAPTER_PATH \
@@ -276,7 +276,7 @@ export OUTPUT_DIR="animatediff"
 export TRAIN_DIR="webvid"
 export JSON_FILE="webvid/data.json"
 
-accelerate launch  ./SDXL/train_animatediff_with_lora.py \
+accelerate launch  ./stable_diffusion/train_animatediff_with_lora.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
   --motion_module=$MOTION_MODULE \
   --train_data_dir=$TRAIN_DIR \
